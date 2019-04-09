@@ -43,7 +43,9 @@ namespace WebApi.Controllers
                         var claims = new[]
                         {
                             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                            new Claim(JwtRegisteredClaimNames.UniqueName, user.Email),
+                            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
 
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SigningKey"]));
@@ -56,7 +58,7 @@ namespace WebApi.Controllers
                             signingCredentials: creds
                         );
 
-                        return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+                        return Json(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
                     }
                 }
             }

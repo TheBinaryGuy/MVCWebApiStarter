@@ -59,7 +59,8 @@ namespace WebApi
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
-            services.AddAuthentication(options => {
+            services.AddAuthentication(options =>
+            {
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -68,13 +69,14 @@ namespace WebApi
             {
                 options.SlidingExpiration = true;
             })
-            .AddJwtBearer(options => {
+            .AddJwtBearer(options =>
+            {
                 options.SaveToken = true;
-                #if DEBUG
+#if DEBUG
                 options.RequireHttpsMetadata = false; // For Dev Reasons
-                #else
+#else
                 options.RequireHttpsMetadata = true;
-                #endif
+#endif
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
