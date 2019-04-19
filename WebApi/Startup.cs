@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using WebApi.Data;
+using WebApi.Repositories;
 
 namespace WebApi
 {
@@ -47,6 +49,12 @@ namespace WebApi
             services.AddDbContext<AppDbContext>(
                 options => options.UseSqlite(Configuration.GetConnectionString("AppDbContextConnection"))
             );
+
+            // https://nicolas.guelpa.me/blog/2017/01/11/dotnet-core-data-protection-keys-repository.html
+            services.AddSingleton<IXmlRepository, DataProtectionKeyRepository>();
+            var built = services.BuildServiceProvider();
+            services.AddDataProtection()
+                .AddKeyManagementOptions(options => options.XmlRepository = built.GetService<IXmlRepository>());
 
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
