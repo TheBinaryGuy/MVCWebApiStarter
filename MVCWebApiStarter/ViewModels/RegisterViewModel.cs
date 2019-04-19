@@ -1,9 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApi.ViewModels
+namespace MVCWebApiStarter.ViewModels
 {
-    public class LoginViewModel
+    public class RegisterViewModel
     {
+        [Required, MaxLength(15)]
+        public string UserName { get; set; }
+
         [Required, EmailAddress]
         public string Email { get; set; }
 

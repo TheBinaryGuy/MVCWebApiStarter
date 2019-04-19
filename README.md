@@ -1,1 +1,29 @@
-### MVCWebApiStarter
+# MVCWebApiStarter
+#### A simple ASP.NET Core Web API & MVC starter with Authentication.
+
+------
+
+### Prerequisites
+1. [dotnet sdk v2.2]("https://dotnet.microsoft.com/download/dotnet-core/2.2", "v2.2")
+2. Your favorite editor / IDE (I prefer [Visual Studio 2019]("https://visualstudio.microsoft.com"))
+
+------
+
+### Get Started
+1. Set these environment variables using [user-secrets]("https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets"):
+```bash
+dotnet user-secrets set "ConnectionStrings:DefaultConn" "Data Source=App.db"
+dotnet user-secrets set "Jwt:Issuer" "https://example.com"
+dotnet user-secrets set "Jwt:Audience" "https://example.com"
+dotnet user-secrets set "Jwt:SigningKey" "SUPERSECRETLONGSIGNINGKEY"
+```
+2. Now, issue these commands in the project directory:
+```bash
+dotnet restore
+dotnet build
+dotnet ef migrations add Initial -o Data/Migrations
+dotnet ef database update
+dotnet run
+```
+3. Build amazing apps.
+4. Profit.

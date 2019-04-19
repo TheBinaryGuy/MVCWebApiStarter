@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WebApi.Models;
+using MVCWebApiStarter.Models;
 
-namespace WebApi.Data
+namespace MVCWebApiStarter.Data
 {
     public class AppDbContext : IdentityDbContext<AppUser>
     {

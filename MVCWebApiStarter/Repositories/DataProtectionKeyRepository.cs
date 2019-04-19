@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Linq;
-using WebApi.Data;
-using WebApi.Models;
+using MVCWebApiStarter.Data;
+using MVCWebApiStarter.Models;
 
-namespace WebApi.Repositories
+namespace MVCWebApiStarter.Repositories
 {
     public class DataProtectionKeyRepository : IXmlRepository
     {

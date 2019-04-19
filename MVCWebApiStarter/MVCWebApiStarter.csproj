@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>4c75e791-33cc-4a76-8b46-26891c08ab04</UserSecretsId>
+    <RootNamespace>MVCWebApiStarter</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

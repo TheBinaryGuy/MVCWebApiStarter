@@ -363,3 +363,6 @@ ASALocalRun/
 
 # ignore minified files
 **/*.min.*
+
+.vscode
+**/.vscode

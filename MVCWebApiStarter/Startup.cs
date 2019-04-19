@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.Repositories;
@@ -15,10 +14,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
-using WebApi.Data;
-using WebApi.Repositories;
+using MVCWebApiStarter.Data;
+using MVCWebApiStarter.Repositories;
 
-namespace WebApi
+namespace MVCWebApiStarter
 {
     public class Startup
     {
@@ -50,7 +49,7 @@ namespace WebApi
             });
 
             services.AddDbContext<AppDbContext>(
-                options => options.UseSqlite(Configuration.GetConnectionString("AppDbContextConnection"))
+                options => options.UseSqlite(Configuration.GetConnectionString("DefaultConn"))
             );
 
             // https://nicolas.guelpa.me/blog/2017/01/11/dotnet-core-data-protection-keys-repository.html

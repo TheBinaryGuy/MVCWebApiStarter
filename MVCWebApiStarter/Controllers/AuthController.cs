@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using WebApi.Data;
-using WebApi.ViewModels;
+using MVCWebApiStarter.Data;
+using MVCWebApiStarter.ViewModels;
 
-namespace WebApi.Controllers
+namespace MVCWebApiStarter.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
@@ -31,7 +31,7 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("get_token")]
+        [Route("Get_Token")]
         public async Task<IActionResult> GenerateToken([FromBody] LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -71,7 +71,7 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("register")]
+        [Route("Register")]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterViewModel model)
         {
             if (!ModelState.IsValid)
