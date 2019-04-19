@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 using WebApi.Data;
 using WebApi.Repositories;
 
@@ -67,12 +70,7 @@ namespace WebApi
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
+            services.AddAuthentication()
             .AddCookie(options =>
             {
                 options.SlidingExpiration = true;
@@ -98,13 +96,66 @@ namespace WebApi
 
             services.AddMvc()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",
+                    new Info
+                    {
+                        Version = "v1",
+                        Title = "MVCWebApiStarter",
+                        Description = "A simple ASP.NET Core Web API & MVC starter with Authentication.",
+                        TermsOfService = "None",
+                        Contact = new Contact
+                        {
+                            Name = "Heet '81NARY' Mehta",
+                            Email = "thebinaryguy@brownwolfstudio.com",
+                            Url = "https://twitter.com/iamthebinaryguy"
+                        },
+                        License = new License
+                        {
+                            Name = "Use under MIT",
+                            Url = "https://spdx.org/licenses/MIT.html"
+                        }
+                    }
+                );
+
+                c.AddSecurityDefinition("Bearer",
+                    new ApiKeyScheme
+                    {
+                        In = "header",
+                        Description = "Please enter into field the word 'Bearer' following by space and JWT",
+                        Name = "Authorization",
+                        Type = "apiKey"
+                    }
+                );
+
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+                    {
+                        "Bearer",
+                        Enumerable.Empty<string>()
+                    }
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
+                // Enable middleware to serve generated Swagger as a JSON endpoint.
+                app.UseSwagger();
+
                 app.UseDeveloperExceptionPage();
+
+                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+                // specifying the Swagger JSON endpoint.
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MVCWebApiStarter");
+                });
+
             }
             else
             {

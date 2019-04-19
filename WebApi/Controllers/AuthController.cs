@@ -13,6 +13,9 @@ using WebApi.ViewModels;
 
 namespace WebApi.Controllers
 {
+    [Produces("application/json")]
+    [Route("api/[controller]")]
+    [ApiController]
     public class AuthController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -28,6 +31,7 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [Route("get_token")]
         public async Task<IActionResult> GenerateToken([FromBody] LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -63,6 +67,43 @@ namespace WebApi.Controllers
             }
 
             return BadRequest("Could not create token");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(model);
+            }
+
+            var result = await _userManager.CreateAsync(new AppUser { Email = model.Email, UserName = model.UserName }, model.Password);
+            if (result.Succeeded)
+            {
+                var claims = new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, model.Email),
+                    new Claim(JwtRegisteredClaimNames.UniqueName, model.UserName),
+                    new Claim(JwtRegisteredClaimNames.Email, model.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
+
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SigningKey"]));
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                var token = new JwtSecurityToken(issuer: _config["Jwt:Issuer"],
+                    audience: _config["Jwt:Audience"],
+                    claims: claims,
+                    expires: DateTime.Now.AddDays(7),
+                    signingCredentials: creds
+                );
+
+                return Json(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+            }
+
+            return BadRequest(new { Error = "Somthing went wrong." });
         }
     }
 }
