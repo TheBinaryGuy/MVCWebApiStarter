@@ -5,7 +5,7 @@
 
 ### Prerequisites
 1. [dotnet sdk v2.2](https://dotnet.microsoft.com/download/dotnet-core/2.2)
-2. Your favorite editor / IDE (I prefer [Visual Studio 2019](https://visualstudio.microsoft.com))
+2. Your favorite editor / IDE (I prefer [Visual Studio Code](https://code.visualstudio.com) & [Visual Studio 2019](https://visualstudio.microsoft.com))
 
 ------
 
