@@ -1,65 +1,88 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\
-for details on configuring this project to bundle and minify static web assets. */
+﻿@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,700');
 
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+* {
+    font-family: 'Noto Sans', sans-serif;
+    box-sizing: border-box;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.container {
-  max-width: 960px;
-}
-
-.pricing-header {
-  max-width: 700px;
-}
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  overflow: scroll;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+
+main {
+    flex: 1 0 auto;
+}
+
+.ml-10 {
+    margin-left: 10px;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.mb-50 {
+    margin-bottom: 50px;
+}
+
+.headerTags {
+    margin: 15px 0 7px 0;
+}
+
+    .headerTags div:nth-child(1) {
+        margin-bottom: 5px;
+    }
+
+    .headerTags div:nth-child(2) {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 5px;
+    }
+
+        .headerTags div:nth-child(2) a {
+            margin: 2px;
+            flex: auto;
+        }
+
+li.disabled a:hover {
+    cursor: no-drop;
+}
+
+nav div ul li .navBtn {
+    margin-right: 10px;
+    margin-left: 0;
 }

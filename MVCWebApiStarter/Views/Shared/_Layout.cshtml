@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A simple ASP.NET Core Web API & MVC starter with Authentication." />
+    <meta itemProp="name" content="MVCWebApiStarter" />
+    <meta itemProp="description" content="A simple ASP.NET Core Web API & MVC starter with Authentication." />
+    <meta itemProp="image" content="@($"{Context.Request.Scheme}://{Context.Request.Host}")/res/BWS.png" />
+    <meta property="og:url" content="@($"{Context.Request.Scheme}://{Context.Request.Host}")" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="MVCWebApiStarter" />
+    <meta property="og:description" content="A simple ASP.NET Core Web API & MVC starter with Authentication." />
+    <meta property="og:image" content="@($"{Context.Request.Scheme}://{Context.Request.Host}")/res/BWS.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MVCWebApiStarter" />
+    <meta name="twitter:description" content="A simple ASP.NET Core Web API & MVC starter with Authentication." />
+
+    <title>@(ViewData["Title"] ?? "MVCWebApiStarter")</title>
+
+    <environment include="Development">
+        <link href="~/lib/materialize/css/materialize.min.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    </environment>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <partial name="NavPartial" />
+
+    <main>
+        <div class="row">
+            @RenderBody()
+        </div>
+    </main>
+
+    <partial name="FooterPartial" />
+
+    <partial name="ScriptsPartial" />
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

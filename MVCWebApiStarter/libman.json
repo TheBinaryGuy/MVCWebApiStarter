@@ -3,6 +3,10 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
+      "library": "materialize@1.0.0",
+      "destination": "wwwroot/lib/materialize"
+    },
+    {
       "library": "jquery-validate@1.19.0",
       "destination": "wwwroot/lib/jquery-validate/",
       "files": [
@@ -21,13 +25,6 @@
       "destination": "wwwroot/lib/jquery/",
       "files": [
         "jquery.min.js"
-      ]
-    },
-    {
-      "library": "twitter-bootstrap@4.3.1",
-      "destination": "wwwroot/lib/bootstrap",
-      "files": [
-        "css/bootstrap.min.css", "js/bootstrap.min.js"
       ]
     }
   ]
