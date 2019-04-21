@@ -10,14 +10,16 @@
 ------
 
 ### Get Started
-1. Set these environment variables using [user-secrets](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets):
+1. [Download](https://github.com/TheBinaryGuy/MVCWebApiStarter/releases/) the template
+2. [Install it](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates)
+3. Set these environment variables using [user-secrets](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets):
 ```bash
 dotnet user-secrets set "ConnectionStrings:DefaultConn" "Data Source=App.db"
 dotnet user-secrets set "Jwt:Issuer" "https://example.com"
 dotnet user-secrets set "Jwt:Audience" "https://example.com"
 dotnet user-secrets set "Jwt:SigningKey" "SUPERSECRETLONGSIGNINGKEY"
 ```
-2. Now, issue these commands in the project directory:
+4. Now, issue these commands in the project directory:
 ```bash
 dotnet restore
 dotnet build
@@ -25,5 +27,5 @@ dotnet ef migrations add Initial -o Data/Migrations
 dotnet ef database update
 dotnet run
 ```
-3. Build amazing apps.
-4. Profit.
+5. Build amazing apps.
+6. Profit.
