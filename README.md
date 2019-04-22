@@ -10,7 +10,7 @@
 ------
 
 ### Get Started
-1. [Download](https://github.com/TheBinaryGuy/MVCWebApiStarter/releases/) the template (MVCWebApiStarter.zip)
+1. [Download](https://github.com/TheBinaryGuy/MVCWebApiStarter/releases/latest) the template (MVCWebApiStarter.zip)
 2. [Install it](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-locate-and-organize-project-and-item-templates)
 3. Set these environment variables using [user-secrets](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets):
 ```bash
