@@ -19,28 +19,19 @@
     <title>@(ViewData["Title"] ?? "MVCWebApiStarter")</title>
 
     <environment include="Development">
-        <link href="~/lib/materialize/css/materialize.min.css" rel="stylesheet" />
+        <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
     </environment>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-    <partial name="NavPartial" />
-
-    <main>
-        <div class="row">
-            @RenderBody()
-        </div>
-    </main>
-
-    <partial name="FooterPartial" />
-
+    <div class="row">
+        @RenderBody()
+    </div>
     <partial name="ScriptsPartial" />
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -8,16 +8,7 @@
 html, body {
     margin: 0;
     padding: 0;
-}
-
-html {
     font-size: 14px;
-}
-
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
 }
 
 html {
@@ -31,58 +22,8 @@ body {
     flex-direction: column;
 }
 
-main {
-    flex: 1 0 auto;
-}
-
-.ml-10 {
-    margin-left: 10px;
-}
-
-.mr-10 {
-    margin-right: 10px;
-}
-
-.mt-10 {
-    margin-top: 10px;
-}
-
-.mb-10 {
-    margin-bottom: 10px;
-}
-
-.mt-50 {
-    margin-top: 50px;
-}
-
-.mb-50 {
-    margin-bottom: 50px;
-}
-
-.headerTags {
-    margin: 15px 0 7px 0;
-}
-
-    .headerTags div:nth-child(1) {
-        margin-bottom: 5px;
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
     }
-
-    .headerTags div:nth-child(2) {
-        display: flex;
-        flex-wrap: wrap;
-        margin-top: 5px;
-    }
-
-        .headerTags div:nth-child(2) a {
-            margin: 2px;
-            flex: auto;
-        }
-
-li.disabled a:hover {
-    cursor: no-drop;
-}
-
-nav div ul li .navBtn {
-    margin-right: 10px;
-    margin-left: 0;
 }
