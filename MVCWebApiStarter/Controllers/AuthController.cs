@@ -13,7 +13,6 @@ using MVCWebApiStarter.ViewModels;
 
 namespace MVCWebApiStarter.Controllers
 {
-    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -31,62 +30,52 @@ namespace MVCWebApiStarter.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("Get_Token")]
-        public async Task<IActionResult> GenerateToken([FromBody] LoginViewModel model)
+        [Route("login")]
+        public async Task<IActionResult> LoginAsync(LoginViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _userManager.FindByNameAsync(model.UserName);
 
-                if (user != null)
+            if (user != null)
+            {
+                var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+                if (result.Succeeded)
                 {
-                    var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
-                    if (result.Succeeded)
+                    var claims = new[]
                     {
-                        var claims = new[]
-                        {
-                            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                            new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                             new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
-                            new Claim(JwtRegisteredClaimNames.Email, user.Email),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
 
-                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SigningKey"]));
-                        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SigningKey"]));
+                    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-                        var token = new JwtSecurityToken(issuer: _config["Jwt:Issuer"],
-                            audience: _config["Jwt:Audience"],
-                            claims: claims,
-                            expires: DateTime.Now.AddMinutes(30),
-                            signingCredentials: creds
-                        );
+                    var token = new JwtSecurityToken(issuer: _config["Jwt:Issuer"],
+                        audience: _config["Jwt:Audience"],
+                        claims: claims,
+                        expires: DateTime.Now.AddMinutes(30),
+                        signingCredentials: creds
+                    );
 
-                        return new JsonResult(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
-                    }
+                    return new JsonResult(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
                 }
             }
 
-            return BadRequest("Could not create token");
+            return BadRequest("User doesn't exist.");
         }
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("Register")]
-        public async Task<IActionResult> RegisterUser([FromBody] RegisterViewModel model)
+        [Route("register")]
+        public async Task<IActionResult> RegisterAsync(RegisterViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return new JsonResult(model);
-            }
-
             var result = await _userManager.CreateAsync(new AppUser { Email = model.Email, UserName = model.UserName }, model.Password);
             if (result.Succeeded)
             {
                 var claims = new[]
                 {
-                    new Claim(JwtRegisteredClaimNames.Sub, model.Email),
+                    new Claim(JwtRegisteredClaimNames.Sub, model.UserName),
                     new Claim(JwtRegisteredClaimNames.UniqueName, model.UserName),
-                    new Claim(JwtRegisteredClaimNames.Email, model.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
 
