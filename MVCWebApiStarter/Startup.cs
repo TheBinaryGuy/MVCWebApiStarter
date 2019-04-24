@@ -30,14 +30,17 @@ namespace MVCWebApiStarter
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // GDPR stuff
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // Configure Cors
             services.AddCors(options =>
             {
+                // Cors Policy
                 options.AddPolicy("EnableCORS", builder =>
                     {
                         builder.AllowAnyOrigin()
@@ -48,6 +51,7 @@ namespace MVCWebApiStarter
                     });
             });
 
+            // Configures Ef Core
             services.AddDbContext<AppDbContext>(
                 options => options.UseSqlite(Configuration.GetConnectionString("DefaultConn"))
             );
@@ -58,6 +62,7 @@ namespace MVCWebApiStarter
             services.AddDataProtection()
                 .AddKeyManagementOptions(options => options.XmlRepository = built.GetService<IXmlRepository>());
 
+            // Add Identitty
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
@@ -66,14 +71,18 @@ namespace MVCWebApiStarter
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             })
+            // Configure EF for Identity
             .AddEntityFrameworkStores<AppDbContext>()
+            // To handle token generation for things like confirmation, forgot pass, etc.
             .AddDefaultTokenProviders();
 
             services.AddAuthentication()
+            // Add Cookie Authentication
             .AddCookie(options =>
             {
                 options.SlidingExpiration = true;
             })
+            // Add Jwt Authentication
             .AddJwtBearer(options =>
             {
                 options.SaveToken = true;
@@ -93,8 +102,16 @@ namespace MVCWebApiStarter
                 };
             });
 
+            // Configures Mvc Services
             services.AddMvc()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Authorization
+            services.AddAuthorization(options =>
+            {
+                // TestPolicy
+                options.AddPolicy("TestPolicy", p => p.RequireClaim("Test", "1", "2"));
+            });
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>

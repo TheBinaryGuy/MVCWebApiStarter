@@ -23,23 +23,5 @@ namespace MVCWebApiStarter.Controllers
         {
             return new JsonResult(new { Value1 = "value1" });
         }
-
-        //// POST api/values
-        //[HttpPost]
-        //public IActionResult Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT api/values/5
-        //[HttpPut("{id}")]
-        //public IActionResult Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/values/5
-        //[HttpDelete("{id}")]
-        //public IActionResult Delete(int id)
-        //{
-        //}
     }
 }

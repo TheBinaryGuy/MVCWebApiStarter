@@ -16,7 +16,7 @@ namespace MVCWebApiStarter.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : Controller
+    public class AuthController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
@@ -46,7 +46,7 @@ namespace MVCWebApiStarter.Controllers
                         var claims = new[]
                         {
                             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                            new Claim(JwtRegisteredClaimNames.UniqueName, user.Email),
+                            new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
                             new Claim(JwtRegisteredClaimNames.Email, user.Email),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
@@ -61,7 +61,7 @@ namespace MVCWebApiStarter.Controllers
                             signingCredentials: creds
                         );
 
-                        return Json(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+                        return new JsonResult(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
                     }
                 }
             }
@@ -76,7 +76,7 @@ namespace MVCWebApiStarter.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(model);
+                return new JsonResult(model);
             }
 
             var result = await _userManager.CreateAsync(new AppUser { Email = model.Email, UserName = model.UserName }, model.Password);
@@ -100,7 +100,7 @@ namespace MVCWebApiStarter.Controllers
                     signingCredentials: creds
                 );
 
-                return Json(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+                return new JsonResult(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
             }
 
             return BadRequest(new { Error = "Somthing went wrong." });
