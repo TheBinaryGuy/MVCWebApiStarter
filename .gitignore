@@ -366,6 +366,3 @@ ASALocalRun/
 
 .vscode
 **/.vscode
-Migrations
-**/Migrations
-**/**/Migrations
