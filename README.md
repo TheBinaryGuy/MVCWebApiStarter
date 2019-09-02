@@ -1,5 +1,5 @@
 # MVCWebApiStarter
-#### A simple ASP.NET Core Web API & MVC starter with Authentication.
+#### A simple ASP.NET Core Web API & MVC starter with MVC Based Authentication.
 
 ------
 
@@ -23,7 +23,6 @@ dotnet user-secrets set "Jwt:SigningKey" "SUPERSECRETLONGSIGNINGKEY"
 ```bash
 dotnet restore
 dotnet build
-dotnet ef migrations add Initial -o Data/Migrations
 dotnet ef database update
 dotnet run
 ```
